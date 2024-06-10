@@ -108,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
+            Image.asset('assets/image/gato.png'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
