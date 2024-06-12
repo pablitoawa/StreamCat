@@ -6,13 +6,11 @@ import 'package:streamcat/screens/RegisterScreen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp( const Main());
+  runApp(const Main());
 }
-
 
 class Main extends StatelessWidget {
   const Main({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -36,10 +34,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Flutter'),
       ),
-      body: Cuerpo(context),
+      body: cuerpo(context),
     );
   }
-
 }
 
 Widget cuerpo(context) {
@@ -73,5 +70,3 @@ Widget botonRegistro(context) {
       },
       child: const Text("Registrate")));
 }
-
-
