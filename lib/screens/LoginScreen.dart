@@ -11,6 +11,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Home(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -29,49 +30,67 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Cuerpo(),
+      body: SafeArea(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromRGBO(76, 62, 123, 0.35),
+                  Color.fromRGBO(146, 70, 127, 0.35),
+                ],
+              )
+            ),
+            child: cuerpo(),
+          ),
+        ),
     );
   }
 }
 
-Widget Cuerpo() {
+Widget cuerpo() {
   return (Column(
     children: <Widget>[
-      Text("Welcome"),
-      CampoCorreo(),
-      CampoClave(),
-      BotonInicio(),
+      const Text("Welcome"),
+      campoCorreo(),
+      campoClave(),
+      botonInicio(),
     ],
   ));
 }
 
 final TextEditingController _correo = TextEditingController();
-Widget CampoCorreo() {
+Widget campoCorreo() {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: (TextField(
       controller: _correo,
-      decoration: InputDecoration(hintText: "Ingresa tu usuario o e-mail"),
+      decoration: const InputDecoration(
+          labelText: "Email",
+          hintText: "Ingresa tu usuario o e-mail",
+          hintTextDirection: TextDirection.ltr),
       keyboardType: TextInputType.emailAddress,
     )),
   );
 }
 
 final TextEditingController _contrasenia = TextEditingController();
-Widget CampoClave() {
+Widget campoClave() {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: (TextField(
       controller: _contrasenia,
-      decoration: InputDecoration(hintText: "Ingresa tu contraseña"),
+      obscureText: true,
+      decoration: const InputDecoration(
+        labelText: "Contraseña",
+        hintText: "Ingresa tu contraseña",
+        hintTextDirection: TextDirection.ltr,
+      ),
     )),
   );
 }
-Widget BotonInicio() {
-  return (FilledButton(
-      onPressed: () {
-        
-      },
-      child: Text("Ingresar")));
-}
 
+Widget botonInicio() {
+  return (FilledButton(onPressed: () {}, child: const Text("Ingresar")));
+}
