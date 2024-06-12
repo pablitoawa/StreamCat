@@ -71,5 +71,3 @@ Widget BotonRegistro(context) {
       },
       child: Text("Registrate")));
 }
-
-
