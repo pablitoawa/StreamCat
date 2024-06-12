@@ -36,9 +36,10 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Flutter'),
       ),
-      body: cuerpo(context),
+      body: Cuerpo(context),
     );
   }
+
 }
 
 Widget cuerpo(context) {
@@ -72,3 +73,5 @@ Widget botonRegistro(context) {
       },
       child: const Text("Registrate")));
 }
+
+

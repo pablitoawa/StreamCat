@@ -51,10 +51,10 @@ class _HomeState extends State<Home> {
 Widget cuerpo(context) {
   return (Column(
     children: <Widget>[
-      const Text("Welcome"),
-      campoCorreo(),
-      campoClave(),
-      botonInicio(context),
+      Text("Welcome"),
+      CampoCorreo(),
+      CampoClave(),
+      BotonInicio(context),
     ],
   ));
 }
@@ -80,11 +80,7 @@ Widget campoClave() {
     padding: const EdgeInsets.all(20),
     child: (TextField(
       controller: _contrasenia,
-      obscureText: true,
-      decoration: const InputDecoration(
-          labelText: "Contraseña",
-          hintText: "Ingresa tu contraseña",
-          hintTextDirection: TextDirection.ltr),
+      decoration: InputDecoration(hintText: "Ingresa tu contraseña"),
     )),
   );
 }
