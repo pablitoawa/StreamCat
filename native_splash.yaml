@@ -1,0 +1,11 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  color: "#542e25"
+  image: "assets/image/gato.png"
+  branding: "assets/image/brand.png"
+  background_image: "assets/image/gato.png"
+  android_12:
+    image: "assets/image/splash.jpg"
+    branding: "assets/image/brand.png"
