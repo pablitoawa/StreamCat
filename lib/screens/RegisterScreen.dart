@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamcat/screens/LoginScreen.dart';
 
 void main() {
-  runApp(Registro());
+  runApp(const Registro());
 }
 
 class Registro extends StatelessWidget {
@@ -30,35 +30,34 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Registro'),
       ),
-      body: Cuerpo(context),
+      body: cuerpo(context),
     );
   }
 }
 
-Widget Cuerpo(context){
-  return(
-    Column(
-      children: <Widget>[
-        Text("Bienvenido!! Ingresa tu información para crear una cuenta"),
-        CampoNombres(),
-        CampoCorreo(),
-        CampoClave(),
-        BotonRegistro(context),
-      ],
-    )
-  );
+Widget cuerpo(context) {
+  return (Column(
+    children: <Widget>[
+      const Text("Bienvenido!! Ingresa tu información para crear una cuenta"),
+      campoNombres(),
+      campoCorreo(),
+      campoClave(),
+      botonRegistro(context),
+    ],
+  ));
 }
 
 final TextEditingController _nombres = TextEditingController();
-Widget CampoNombres() {
+Widget campoNombres() {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: Column(
       children: [
-        Text("Nombre y Apellido:"),
+        const Text("Nombre y Apellido:"),
         (TextField(
           controller: _nombres,
-          decoration: InputDecoration(hintText: "Ingresa tu nombre y apellido"),
+          decoration:
+              const InputDecoration(hintText: "Ingresa tu nombre y apellido"),
         )),
       ],
     ),
@@ -66,34 +65,33 @@ Widget CampoNombres() {
 }
 
 final TextEditingController _correo = TextEditingController();
-Widget CampoCorreo() {
+Widget campoCorreo() {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: (TextField(
       controller: _correo,
-      decoration: InputDecoration(hintText: "Ingresa tu e-mail"),
+      decoration: const InputDecoration(hintText: "Ingresa tu e-mail"),
       keyboardType: TextInputType.emailAddress,
     )),
   );
 }
 
 final TextEditingController _contrasenia = TextEditingController();
-Widget CampoClave() {
+Widget campoClave() {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: (TextField(
       controller: _contrasenia,
-      decoration: InputDecoration(hintText: "Ingresa tu contraseña"),
+      decoration: const InputDecoration(hintText: "Ingresa tu contraseña"),
     )),
   );
 }
-Widget BotonRegistro(context){
-  return(
-   FilledButton(onPressed: (){
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Login()));
-   }, 
-   child: Text("Registrarse")
-   )
-  );
+
+Widget botonRegistro(context) {
+  return (FilledButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const Login()));
+      },
+      child: const Text("Registrarse")));
 }

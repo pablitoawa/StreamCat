@@ -6,7 +6,7 @@ import 'package:streamcat/screens/RegisterScreen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Main());
+  runApp( const Main());
 }
 
 
@@ -17,6 +17,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Home(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -35,39 +36,39 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Flutter'),
       ),
-      body: Cuerpo(context),
+      body: cuerpo(context),
     );
   }
 }
 
-Widget Cuerpo(context) {
+Widget cuerpo(context) {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     alignment: Alignment.center,
     child: (Column(
       children: <Widget>[
-        Text("Welcome"),
-        BotonLogin(context),
-        BotonRegistro(context),
+        const Text("Welcome"),
+        botonLogin(context),
+        botonRegistro(context),
       ],
     )),
   );
 }
 
-Widget BotonLogin(context) {
+Widget botonLogin(context) {
   return (FilledButton(
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Login()));
+            context, MaterialPageRoute(builder: (context) => const Login()));
       },
-      child: Text("Iniciar sesion")));
+      child: const Text("Iniciar sesion")));
 }
 
-Widget BotonRegistro(context) {
+Widget botonRegistro(context) {
   return (ElevatedButton(
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Registro()));
+            context, MaterialPageRoute(builder: (context) => const Registro()));
       },
-      child: Text("Registrate")));
+      child: const Text("Registrate")));
 }
