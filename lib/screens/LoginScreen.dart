@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,18 +30,18 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Cuerpo(),
+      body: Cuerpo(context),
     );
   }
 }
 
-Widget Cuerpo() {
+Widget Cuerpo(context) {
   return (Column(
     children: <Widget>[
       Text("Welcome"),
       CampoCorreo(),
       CampoClave(),
-      BotonInicio(),
+      BotonInicio(context),
     ],
   ));
 }
@@ -67,11 +68,29 @@ Widget CampoClave() {
     )),
   );
 }
-Widget BotonInicio() {
+Widget BotonInicio(context) {
   return (FilledButton(
       onPressed: () {
-        
+        login(context);
       },
       child: Text("Ingresar")));
 }
 
+Future<void> login(context) async {
+  try {
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _correo.text, password: _contrasenia.text);
+    ////////////////////
+    /*
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ));
+        */
+    ///////////////////
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
+  }
+}

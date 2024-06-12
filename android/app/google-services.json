@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "915998427326",
+    "project_id": "streamcatv1",
+    "storage_bucket": "streamcatv1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915998427326:android:2ff7c683d44ba1ceea76ef",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpFcVLUCeOa-l9XEDyiEzAhRLQgWSLbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915998427326:android:5d1435d5202db8e8ea76ef",
+        "android_client_info": {
+          "package_name": "com.example.streamcat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpFcVLUCeOa-l9XEDyiEzAhRLQgWSLbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915998427326:android:d2ab0cc3989ab540ea76ef",
+        "android_client_info": {
+          "package_name": "com.streamcat.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpFcVLUCeOa-l9XEDyiEzAhRLQgWSLbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
