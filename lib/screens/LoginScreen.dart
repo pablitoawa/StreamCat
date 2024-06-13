@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:streamcat/screens/AgregarScreen.dart';
+import 'package:streamcat/screens/ProductosScreen.dart';
 
 void main() {
   runApp(const Login());
@@ -102,10 +104,10 @@ Future<void> login(context) async {
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _correo.text, password: _contrasenia.text);
     ////////////////////
-    /*
+    
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ));
-        */
+        context, MaterialPageRoute(builder: (context) => const Productos()));
+
     ///////////////////
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
