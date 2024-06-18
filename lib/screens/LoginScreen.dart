@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:streamcat/screens/AgregarScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:streamcat/screens/ProductosScreen.dart';
 
 void main() {
@@ -12,8 +12,12 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return MaterialApp(
+      title: 'Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -27,93 +31,146 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _contraseniaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: SafeArea(
-          child: Container(
+      body: Container(
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.center,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(76, 62, 123, 0.35),
-            Color.fromRGBO(146, 70, 127, 0.35),
-          ],
-        )),
-        child: cuerpo(context),
-      )),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF003366),
+              Color(0xFF000033),
+            ],
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'StreamCat',
+                  style: GoogleFonts.satisfy(
+                    textStyle: const TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                const Text(
+                  "Bienvenido de nuevo!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+                campoCorreo(_correoController),
+                const SizedBox(height: 16.0),
+                campoClave(_contraseniaController),
+                const SizedBox(height: 24.0),
+                botonInicio(context),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
-}
 
-Widget cuerpo(context) {
-  return (Column(
-    children: <Widget>[
-      const Text("Welcome"),
-      campoCorreo(),
-      campoClave(),
-      botonInicio(context),
-    ],
-  ));
-}
-
-final TextEditingController _correo = TextEditingController();
-Widget campoCorreo() {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    child: (TextField(
-      controller: _correo,
+  Widget campoCorreo(TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      style: const TextStyle(color: Colors.white),
       decoration: const InputDecoration(
-          labelText: "Email",
-          hintText: "Ingresa tu usuario o e-mail",
-          hintTextDirection: TextDirection.ltr),
+        labelText: 'Email',
+        labelStyle: TextStyle(color: Colors.white),
+        hintText: 'Ingresa tu usuario o e-mail',
+        hintStyle: TextStyle(color: Colors.white54),
+        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white54),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.amber),
+        ),
+      ),
       keyboardType: TextInputType.emailAddress,
-    )),
-  );
-}
+    );
+  }
 
-final TextEditingController _contrasenia = TextEditingController();
-Widget campoClave() {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    child: (TextField(
-      controller: _contrasenia,
+  Widget campoClave(TextEditingController controller) {
+    return TextField(
+      controller: controller,
       obscureText: true,
+      style: const TextStyle(color: Colors.white),
       decoration: const InputDecoration(
-          labelText: "Contraseña",
-          hintText: "Ingresa tu contraseña",
-          hintTextDirection: TextDirection.ltr),
-    )),
-  );
-}
+        labelText: 'Contraseña',
+        labelStyle: TextStyle(color: Colors.white),
+        hintText: 'Ingresa tu contraseña',
+        hintStyle: TextStyle(color: Colors.white54),
+        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white54),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.amber),
+        ),
+      ),
+    );
+  }
 
-Widget botonInicio(context) {
-  return (FilledButton(
-      onPressed: () {
-        login(context);
-      },
-      child: const Text("Ingresar")));
-}
+  Widget botonInicio(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          login(context);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.amber,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+        ),
+        child: const Text(
+          'Ingresar',
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
 
-Future<void> login(context) async {
-  try {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _correo.text, password: _contrasenia.text);
-    ////////////////////
-    
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Productos()));
+  Future<void> login(BuildContext context) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _correoController.text,
+        password: _contraseniaController.text,
+      );
 
-    ///////////////////
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Productos()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 }

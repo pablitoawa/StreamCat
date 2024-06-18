@@ -12,10 +12,15 @@ Future<void> main() async {
 
 class Main extends StatelessWidget {
   const Main({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return MaterialApp(
+      title: 'StreamCat',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -32,9 +37,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: const Color.fromRGBO(0, 0, 68, 0.8),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF003366),
+              Color(0xFF000033),
+            ],
+          ),
+        ),
+        child: SafeArea(
           child: cuerpo(context),
         ),
       ),
@@ -42,18 +56,17 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget cuerpo(context) {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    alignment: Alignment.center,
+Widget cuerpo(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
     child: Column(
       children: <Widget>[
         imagen(),
         nameapp(),
         slogan(),
-        const Spacer(), // Esto empuja el botón de inicio de sesión hacia abajo
+        const Spacer(),
         botonLogin(context),
-        const SizedBox(height: 10), // Espacio entre los botones
+        const SizedBox(height: 10),
         registroTexto(context),
       ],
     ),
@@ -98,37 +111,36 @@ Widget nameapp() {
   );
 }
 
-Widget botonLogin(context) {
-  return Row(
-    children: [
-      Expanded(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
-          },
-          child: const Text("Iniciar sesión"),
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            textStyle: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            backgroundColor: const Color.fromRGBO(254, 243, 186, 1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-          ),
+Widget botonLogin(BuildContext context) {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const Login()));
+      },
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        textStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
+        backgroundColor: const Color.fromRGBO(254, 243, 186, 1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 16),
       ),
-    ],
+      child: const Text("Iniciar sesión"),
+    ),
   );
 }
 
-Widget registroTexto(context) {
+Widget registroTexto(BuildContext context) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const Registro()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Registro()));
     },
     child: const Text(
       "¿No tienes cuenta? Regístrate",
