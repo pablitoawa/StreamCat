@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:streamcat/screens/LoginScreen.dart';
 import 'package:streamcat/screens/RegisterScreen.dart';
 
@@ -31,10 +32,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter'),
+      body: SafeArea(
+        child: Container(
+          color: const Color.fromRGBO(0, 0, 68, 0.8),
+          child: cuerpo(context),
+        ),
       ),
-      body: cuerpo(context),
     );
   }
 }
@@ -43,30 +46,98 @@ Widget cuerpo(context) {
   return Container(
     padding: const EdgeInsets.all(20),
     alignment: Alignment.center,
-    child: (Column(
+    child: Column(
       children: <Widget>[
-        const Text("Welcome"),
+        imagen(),
+        nameapp(),
+        slogan(),
+        const Spacer(), // Esto empuja el botón de inicio de sesión hacia abajo
         botonLogin(context),
-        botonRegistro(context),
+        const SizedBox(height: 10), // Espacio entre los botones
+        registroTexto(context),
       ],
-    )),
+    ),
+  );
+}
+
+Widget imagen() {
+  return const ClipRRect(
+    borderRadius: BorderRadius.all(Radius.circular(20)),
+    child: Image(image: AssetImage("assets/image/gato.png")),
+  );
+}
+
+Widget slogan() {
+  return Container(
+    margin: const EdgeInsets.only(top: 25),
+    child: Text(
+      "Descubre, explora, disfruta",
+      textAlign: TextAlign.center,
+      style: GoogleFonts.satisfy(
+        textStyle: const TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.w500,
+          color: Colors.amber,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget nameapp() {
+  return Text(
+    "StreamCat",
+    textAlign: TextAlign.center,
+    style: GoogleFonts.satisfy(
+      textStyle: const TextStyle(
+        fontSize: 52,
+        fontWeight: FontWeight.w700,
+        color: Colors.amber,
+      ),
+    ),
   );
 }
 
 Widget botonLogin(context) {
-  return (FilledButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Login()));
-      },
-      child: const Text("Iniciar sesion")));
+  return Row(
+    children: [
+      Expanded(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+          },
+          child: const Text("Iniciar sesión"),
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            textStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            backgroundColor: const Color.fromRGBO(254, 243, 186, 1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+          ),
+        ),
+      ),
+    ],
+  );
 }
 
-Widget botonRegistro(context) {
-  return (ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Registro()));
-      },
-      child: const Text("Registrate")));
+Widget registroTexto(context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const Registro()));
+    },
+    child: const Text(
+      "¿No tienes cuenta? Regístrate",
+      style: TextStyle(
+        color: Colors.amber,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        decoration: TextDecoration.underline,
+      ),
+    ),
+  );
 }
