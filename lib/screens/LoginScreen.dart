@@ -166,11 +166,39 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(builder: (context) => const Productos()),
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+      mostrarAlertError(e.code, context);
     }
+  }
+
+  void mostrarAlertError(String codigo, BuildContext context) {
+    String mensaje = '';
+    switch (codigo) {
+      case 'user-not-found':
+        mensaje = 'No existe un usuario con ese correo.';
+        break;
+      case 'wrong-password':
+        mensaje = 'Contraseña incorrecta.';
+        break;
+      default:
+        mensaje = 'Error en las credenciales.';
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error de inicio de sesión'),
+          content: Text(mensaje),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

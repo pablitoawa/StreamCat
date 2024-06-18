@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:streamcat/screens/LoginScreen.dart';
@@ -157,11 +158,7 @@ class _HomeState extends State<Home> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          // Lógica de registro aquí
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Login()),
-          );
+          register(context);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.amber,
@@ -178,6 +175,60 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> register(BuildContext context) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _correoController.text, password: _contraseniaController.text);
+      guardar();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Login()));
+    } on FirebaseAuthException catch (e) {
+      mostrarAlertError(e.code, context);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> guardar() async {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/" + _nombresController.text);
+
+    await ref.set({"correo": _correoController.text});
+  }
+
+  void mostrarAlertError(String codigo, BuildContext context) {
+    String mensaje = '';
+    switch (codigo) {
+      case 'weak-password':
+        mensaje = 'La contraseña es demasiado débil.';
+        break;
+      case 'email-already-in-use':
+        mensaje = 'El correo electrónico ya está en uso.';
+        break;
+      default:
+        mensaje = 'Error desconocido.';
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error de registro'),
+          content: Text(mensaje),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
