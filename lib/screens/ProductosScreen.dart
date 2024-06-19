@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,12 +28,28 @@ class Lista extends StatefulWidget {
 
 class _ListaState extends State<Lista> {
   List<Map<dynamic, dynamic>> movieList = [];
-  String userName = "Juan"; // Reemplaza con el nombre real del usuario
+  String userName = "";
 
   @override
   void initState() {
     super.initState();
+    getUserName();
     getData();
+  }
+
+  void getUserName() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DatabaseReference userRef = FirebaseDatabase.instance.ref('users/${user.uid}');
+      userRef.once().then((DatabaseEvent event) {
+        final data = event.snapshot.value as Map?;
+        if (data != null && data['nombre'] != null) {
+          setState(() {
+            userName = data['nombre'];
+          });
+        }
+      });
+    }
   }
 
   void getData() {

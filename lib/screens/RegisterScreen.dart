@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
       decoration: const InputDecoration(
         labelText: 'Nombre y Apellido',
         labelStyle: TextStyle(color: Colors.white),
-        hintText: "Ingresa tu nombre y apellido",
+        hintText: "Ingresa tu nombre",
         hintStyle: TextStyle(color: Colors.white54),
         border: OutlineInputBorder(),
         enabledBorder: OutlineInputBorder(
@@ -179,26 +179,28 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> register(BuildContext context) async {
-    try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: _correoController.text, password: _contraseniaController.text);
-      guardar();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Login()));
-    } on FirebaseAuthException catch (e) {
-      mostrarAlertError(e.code, context);
-    } catch (e) {
-      print(e);
-    }
+  try {
+    final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _correoController.text, 
+      password: _contraseniaController.text
+    );
+    await guardar(credential.user!.uid);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+  } on FirebaseAuthException catch (e) {
+    mostrarAlertError(e.code, context);
+  } catch (e) {
+    print(e);
   }
+}
 
-  Future<void> guardar() async {
-    DatabaseReference ref =
-        FirebaseDatabase.instance.ref("users/" + _nombresController.text);
+  Future<void> guardar(String uid) async {
+  DatabaseReference ref = FirebaseDatabase.instance.ref("users/" + uid);
 
-    await ref.set({"correo": _correoController.text});
-  }
+  await ref.set({
+    "nombre": _nombresController.text,
+    "correo": _correoController.text
+  });
+}
 
   void mostrarAlertError(String codigo, BuildContext context) {
     String mensaje = '';
