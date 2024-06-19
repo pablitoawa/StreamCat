@@ -40,7 +40,8 @@ class _ListaState extends State<Lista> {
   void getUserName() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      DatabaseReference userRef = FirebaseDatabase.instance.ref('users/${user.uid}');
+      DatabaseReference userRef =
+          FirebaseDatabase.instance.ref('users/${user.uid}');
       userRef.once().then((DatabaseEvent event) {
         final data = event.snapshot.value as Map?;
         if (data != null && data['nombre'] != null) {
@@ -121,7 +122,7 @@ class MovieCard extends StatelessWidget {
   final String title;
   final String poster;
   final String description;
-  final double rating;
+  final String rating;
 
   const MovieCard({
     super.key,
@@ -204,3 +205,4 @@ class MovieCard extends StatelessWidget {
     );
   }
 }
+

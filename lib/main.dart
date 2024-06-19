@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:streamcat/screens/AgregarScreen.dart';
 import 'package:streamcat/screens/LoginScreen.dart';
 import 'package:streamcat/screens/RegisterScreen.dart';
 
@@ -68,6 +69,7 @@ Widget cuerpo(BuildContext context) {
         botonLogin(context),
         const SizedBox(height: 10),
         registroTexto(context),
+        CrearCosas(context)
       ],
     ),
   );
@@ -144,6 +146,24 @@ Widget registroTexto(BuildContext context) {
     },
     child: const Text(
       "¿No tienes cuenta? Regístrate",
+      style: TextStyle(
+        color: Colors.amber,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        decoration: TextDecoration.underline,
+      ),
+    ),
+  );
+}
+
+Widget CrearCosas(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Agregar()));
+    },
+    child: const Text(
+      "¿No tienes cuenta? Agrega cosas",
       style: TextStyle(
         color: Colors.amber,
         fontSize: 16,

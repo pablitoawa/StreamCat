@@ -53,51 +53,67 @@ Widget cuerpo() {
   return (Column(
     children: <Widget>[
       const Text("Añade el producto"),
-      campoId(),
-      campoProducto(),
-      campoPrecio(),
+      campoTitle(),
+      campoPoster(),
+      campoDescripcion(),
+      campoRating(),
       agregar(),
     ],
   ));
 }
 
-final TextEditingController _id = TextEditingController();
-Widget campoId() {
+final TextEditingController _title = TextEditingController();
+Widget campoTitle() {
   return Container(
     padding: const EdgeInsets.all(20),
     child: (TextField(
-        controller: _id,
+        controller: _title,
         decoration: const InputDecoration(
-            labelText: "ID",
-            hintText: "Ingresa el ID",
+            labelText: "Title",
+            hintText: "Ingresa el Titulo de la pelicula",
             hintTextDirection: TextDirection.ltr))),
   );
 }
 
-final TextEditingController _producto = TextEditingController();
-Widget campoProducto() {
+final TextEditingController _imagen = TextEditingController();
+Widget campoPoster() {
   return Container(
     padding: const EdgeInsets.all(20),
     child: (TextField(
-      controller: _producto,
+      controller: _imagen,
       decoration: const InputDecoration(
-        labelText: "Producto",
-        hintText: "Ingresa el producto",
+        labelText: "Imagen",
+        hintText: "Link",
         hintTextDirection: TextDirection.ltr,
       ),
     )),
   );
 }
 
-final TextEditingController _precio = TextEditingController();
-Widget campoPrecio() {
+final TextEditingController _descripcion = TextEditingController();
+Widget campoDescripcion() {
   return Container(
     padding: const EdgeInsets.all(20),
     child: (TextField(
-      controller: _precio,
+      controller: _descripcion,
       decoration: const InputDecoration(
-        labelText: "Precio",
-        hintText: "Ingresa el precio",
+        labelText: "Descripcion",
+        hintText: "Ingresa la descripcion",
+        hintTextDirection: TextDirection.ltr,
+      ),
+    )),
+  );
+}
+
+final TextEditingController _rating = TextEditingController();
+Widget campoRating() {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    child: (TextField(
+      controller: _rating,
+      decoration: const InputDecoration(
+        labelText: "Rating",
+        hintText: "Ingrese el Rating",
         hintTextDirection: TextDirection.ltr,
       ),
     )),
@@ -109,11 +125,12 @@ Widget agregar() {
 }
 
 Future<void> guardar() async {
-  DatabaseReference ref = FirebaseDatabase.instance.ref("producto/123");
+  DatabaseReference ref = FirebaseDatabase.instance.ref("movies/"+_title.text);
 
   await ref.set({
-    "id": _id.text,
-    "producto": _producto.text,
-    "precio": _precio.text
+    "title": _title.text,
+    "poster": _imagen.text,
+    "description": _descripcion.text,
+    "rating": _rating.text
   });
 }
