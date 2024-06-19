@@ -57,7 +57,9 @@ Widget cuerpo() {
       campoPoster(),
       campoDescripcion(),
       campoRating(),
+      campoPelicula(),
       agregar(),
+      
     ],
   ));
 }
@@ -120,6 +122,21 @@ Widget campoRating() {
   );
 }
 
+final TextEditingController _pelicula = TextEditingController();
+Widget campoPelicula() {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    child: (TextField(
+      controller: _pelicula,
+      decoration: const InputDecoration(
+        labelText: "Pelicula",
+        hintText: "Ingrese el link de la pelicula",
+        hintTextDirection: TextDirection.ltr,
+      ),
+    )),
+  );
+}
+
 Widget agregar() {
   return (FilledButton(onPressed: () {guardar();}, child: const Text("Añadir")));
 }
@@ -131,6 +148,7 @@ Future<void> guardar() async {
     "title": _title.text,
     "poster": _imagen.text,
     "description": _descripcion.text,
-    "rating": _rating.text
+    "rating": _rating.text,
+    "pelicula": _pelicula.text
   });
 }
